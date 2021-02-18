@@ -28,17 +28,22 @@ public class EfficientMarkovWord implements IMarkovModel{
     }
     
     private void buildMap(){
-        for (int i=0; i<myText.length-myOrder;i++) {
+        for (int i=0; i<=myText.length-myOrder;i++) {
             WordGram wg = new WordGram(myText,i,myOrder);
-            String next = myText[i+myOrder];
-            if (map.containsKey(wg)) {
-                map.get(wg).add(next);
-            }
-            else {
-                ArrayList<String> list = new ArrayList<String>();
-                list.add(next);
-                map.put(wg, list);
-            }
+            if (i == myText.length-myOrder) {
+                map.put(wg, new ArrayList<String>()); 
+            } else {
+                String next = myText[i+myOrder];
+                //System.out.println("next = " + next);
+                if (map.containsKey(wg)) {
+                    map.get(wg).add(next);
+                }
+                else {
+                    ArrayList<String> list = new ArrayList<String>();
+                    list.add(next);
+                    map.put(wg, list);
+                }
+            }		
         }
     }
     
